@@ -1,0 +1,10 @@
+name: CustomEnchantments
+version: 1.0.0
+author: Scusemua
+main: me.Scusemua.CustomEnchantments.Core.Main
+
+commands:
+  customenchantments:
+    description: Add a custom enchantment to a given item.
+    useage: /<command>
+    permissions: CustomEnchantments.addenchantment
