@@ -44,12 +44,23 @@ public class BaseCommand implements CommandExecutor {
                     return true;
                 }
                 if (strings[1].toLowerCase().equals("shockwave")) {
+                    if (strings.length <= 2) {
+                        player.sendMessage(ChatColor.RED + "ERROR: You need to specify an enchantment level.");
+                        return true;
+                    }
+                    int level = -1;
+                    try {
+                        level = Integer.parseInt(strings[2]);
+                    } catch (NumberFormatException nfe) {
+                        player.sendMessage(ChatColor.RED + "ERROR: The specified enchantment level must be an integer.");
+                        return true;
+                    }
                     ItemStack heldItem = player.getInventory().getItemInMainHand();
 
                     // If the player is holding a pickaxe...
                     for (Material m : MaterialTypes.PICKAXES) {
                         if (heldItem.getType() == m) {
-                            Main.shockwaveEnchantment.addCustomEnchant(heldItem, 1);
+                            Main.shockwaveEnchantment.addCustomEnchant(heldItem, level);
                             player.sendMessage(ChatColor.GOLD + "Your pickaxe has successfully been enchanted. " +
                                     "Congratulations!");
                             return true;
@@ -59,7 +70,7 @@ public class BaseCommand implements CommandExecutor {
                     // If the player is holding a shovel...
                     for (Material m : MaterialTypes.SHOVELS) {
                         if (heldItem.getType() == m) {
-                            Main.shockwaveEnchantment.addCustomEnchant(heldItem, 1);
+                            Main.shockwaveEnchantment.addCustomEnchant(heldItem, level);
                             player.sendMessage(ChatColor.GOLD + "Your shovel has successfully been enchanted. " +
                                     "Congratulations!");
                             return true;

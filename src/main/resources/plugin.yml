@@ -7,4 +7,5 @@ commands:
   customenchantments:
     description: Add a custom enchantment to a given item.
     useage: /<command>
+    aliases: [customenchants, customenchantment, customenchant]
     permissions: CustomEnchantments.addenchantment
