@@ -12,9 +12,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
-/**
- * Created by Benjamin on 8/21/2016.
- */
 public class BaseCommand implements CommandExecutor {
     private Plugin myPlugin;
 
@@ -31,6 +28,18 @@ public class BaseCommand implements CommandExecutor {
         if (commandSender instanceof Player) {
             Player player = (Player)commandSender;
 
+            // Used in conjunction with the CustomEnchantmenets.* permission.
+            boolean bypassPermChecks = false;
+
+            // If the player has all ("*") perms for this, don't check.
+            if (Main.perms.has(player, "CustomEnchantments.*")) bypassPermChecks = true;
+
+            // Ensure the player has permission before executing the command.
+            if (!bypassPermChecks && !(Main.perms.has(player, "CustomEnchants.general"))) {
+                player.sendMessage(ChatColor.RED + "ERROR: You are lacking sufficient permissions to execute that command!");
+                return true;
+            }
+
             if (strings.length == 0) {
                 player.sendMessage(ChatColor.LIGHT_PURPLE + "Type " + ChatColor.DARK_PURPLE + "/CustomEnchantments help " +
                          ChatColor.LIGHT_PURPLE + "for help!");
@@ -39,6 +48,12 @@ public class BaseCommand implements CommandExecutor {
 
             // If the user entered /customenchantments add
             if (strings[0].toLowerCase().equals("add")) {
+                // Ensure the player has permission before executing the command.
+                if (!bypassPermChecks && !(Main.perms.has(player, "CustomEnchants.add"))) {
+                    player.sendMessage(ChatColor.RED + "ERROR: You are lacking sufficient permissions to execute that command!");
+                    return true;
+                }
+
                 if (strings.length <= 1) {
                     player.sendMessage(ChatColor.RED + "ERROR: You need to specify an enchantment.");
                     return true;
@@ -102,13 +117,25 @@ public class BaseCommand implements CommandExecutor {
                     player.sendMessage(ChatColor.RED + "ERROR: Unknown enchantment " + ChatColor.DARK_RED + strings[1]);
                 }
             }
+            // Show the help information pertaining to command syntax.
             else if (strings[0].toLowerCase().equals("help")) {
+                // Ensure the player has permission before executing the command.
+                if (!bypassPermChecks && !(Main.perms.has(player, "CustomEnchants.help"))) {
+                    player.sendMessage(ChatColor.RED + "ERROR: You are lacking sufficient permissions to execute that command!");
+                    return true;
+                }
                 player.sendMessage(ChatColor.GOLD + "Commands: ");
                 player.sendMessage(ChatColor.DARK_PURPLE + "/customenchantments add <enchantment_name> <level>");
                 player.sendMessage(ChatColor.DARK_PURPLE + "/customenchantments list");
                 player.sendMessage("");
             }
+            // List the currently available enchantments.
             else if (strings[0].toLowerCase().equals("list")) {
+                // Ensure the player has permission before executing the command.
+                if (!bypassPermChecks && !(Main.perms.has(player, "CustomEnchants.list"))) {
+                    player.sendMessage(ChatColor.RED + "ERROR: You are lacking sufficient permissions to execute that command!");
+                    return true;
+                }
                 player.sendMessage(ChatColor.GOLD + "Current Enchantments: ");
                 player.sendMessage(ChatColor.LIGHT_PURPLE + "Shockwave <I, II, III>: Unleash MUCH more powerful pickaxe/shovel capabilities.");
                 player.sendMessage(ChatColor.LIGHT_PURPLE + "Speed Demon <I, II>: Permanent speed boost while wearing enchanted armor.");
