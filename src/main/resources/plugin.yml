@@ -2,6 +2,7 @@ name: CustomEnchantments
 version: 1.0.0
 author: Scusemua
 main: me.Scusemua.CustomEnchantments.Core.Main
+depend: [Vault, ArmorEquipEvent]
 
 commands:
   customenchantments:

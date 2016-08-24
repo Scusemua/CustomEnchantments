@@ -12,9 +12,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 
-/**
- * Created by Benjamin on 8/24/2016.
- */
 public class SpeedDemonListener implements Listener {
     private Plugin myPlugin;
 
@@ -26,15 +23,17 @@ public class SpeedDemonListener implements Listener {
     public void onArmorEquipped(ArmorEquipEvent event) {
         // If we are EQUIPPING a piece of armor...
         if(event.getNewArmorPiece() != null && event.getNewArmorPiece().getType() != Material.AIR) {
+            event.getPlayer().sendMessage("Armor equipped...");
             // If the armor piece is of the proper type for the SpeedDemon enchantment...
             if (Main.speedDemonEnchantment.canEnchantItem(event.getNewArmorPiece())) {
+                event.getPlayer().sendMessage("Proper armor type equipped...");
                 // Check if the armor piece was enchanted with Speed Demon.
                 if (event.getNewArmorPiece().hasItemMeta()) {
                     List<String> itemLore = event.getNewArmorPiece().getItemMeta().getLore();
                     // Iterate through each line of the item lore. If the item lore has "Shockwave"
                     // in it, the tool is a "Shockwave"-enchanted tool.
                     for (String s : itemLore) {
-                        if (s.contains("Shockwave")) {
+                        if (s.contains("Speed Demon")) {
                             int level;
                             if (s.contains("II")) level = 2;
                             else level = 1;

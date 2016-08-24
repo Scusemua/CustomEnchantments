@@ -112,9 +112,8 @@ public class ShockwaveEnchantment extends CustomEnchantment {
             displayName = "Pickaxe";
         }
 
-        // Set the item's display name and lore (description when hovering over the item with the mouse).
-        meta.setDisplayName("Shockwave " + getRomanNumeral(level) + " " + displayName);
-        meta.setLore(Arrays.asList(ChatColor.GRAY + "Shockwave " + getRomanNumeral(level)));
+        // Set the item's lore (description when hovering over the item with the mouse).
+        meta.setLore(Arrays.asList(ChatColor.DARK_GRAY + "Shockwave " + getRomanNumeral(level)));
         item.setItemMeta(meta);
 
         return item;

@@ -34,9 +34,8 @@ public class SpeedDemonEnchantment extends CustomEnchantment {
         // Depending on what the item is, set the displayName String to the proper value.
         String displayName = "Boots";
 
-        // Set the item's display name and lore (description when hovering over the item with the mouse).
-        meta.setDisplayName("Speed Demon " + getRomanNumeral(level) + " " + displayName);
-        meta.setLore(Arrays.asList(ChatColor.GRAY + "Speed Demon " + getRomanNumeral(level)));
+        // Set the item's lore (description when hovering over the item with the mouse).
+        meta.setLore(Arrays.asList(ChatColor.DARK_GRAY + "Speed Demon " + getRomanNumeral(level)));
         item.setItemMeta(meta);
 
         return item;
