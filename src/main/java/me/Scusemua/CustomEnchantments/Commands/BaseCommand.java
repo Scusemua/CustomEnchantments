@@ -85,6 +85,17 @@ public class BaseCommand implements CommandExecutor {
                     player.sendMessage(ChatColor.RED + "ERROR: Unknown enchantment " + ChatColor.DARK_RED + strings[1]);
                 }
             }
+            else if (strings[0].toLowerCase().equals("help")) {
+                player.sendMessage(ChatColor.GOLD + "Commands: ");
+                player.sendMessage(ChatColor.DARK_PURPLE + "/customenchantments add <enchantment_name> <level>");
+                player.sendMessage(ChatColor.DARK_PURPLE + "/customenchantments list");
+                player.sendMessage("");
+            }
+            else if (strings[0].toLowerCase().equals("list")) {
+                player.sendMessage(ChatColor.GOLD + "Current Enchantments: ");
+                player.sendMessage(ChatColor.LIGHT_PURPLE + "Shockwave <I, II, III>: Unleash MUCH more powerful pickaxe/shovel capabilities.");
+                player.sendMessage("");
+            }
         }
 
         return true;
