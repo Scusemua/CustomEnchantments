@@ -3,6 +3,7 @@ package me.Scusemua.CustomEnchantments.Core;
 import me.Scusemua.CustomEnchantments.Commands.BaseCommand;
 import me.Scusemua.CustomEnchantments.Enchantments.CustomEnchantment;
 import me.Scusemua.CustomEnchantments.Enchantments.ShockwaveEnchantment;
+import me.Scusemua.CustomEnchantments.Listeners.ShockwaveListener;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -58,6 +59,9 @@ public class Main extends JavaPlugin {
 
         // Commands
         this.getCommand("customenchantments").setExecutor(new BaseCommand(this));
+
+        // Events
+        getServer().getPluginManager().registerEvents(new ShockwaveListener(this), this);
     }
 
     @Override

@@ -31,9 +31,19 @@ public class BaseCommand implements CommandExecutor {
         if (commandSender instanceof Player) {
             Player player = (Player)commandSender;
 
+            if (strings.length == 0) {
+                player.sendMessage(ChatColor.LIGHT_PURPLE + "Type " + ChatColor.DARK_PURPLE + "/CustomEnchantments help " +
+                         ChatColor.LIGHT_PURPLE + "for help!");
+                return true;
+            }
+
             // If the user entered /customenchantments add
-            if (strings[1].toLowerCase().equals("add")) {
-                if (strings[2].toLowerCase().equals("shockwave")) {
+            if (strings[0].toLowerCase().equals("add")) {
+                if (strings.length <= 1) {
+                    player.sendMessage(ChatColor.RED + "ERROR: You need to specify an enchantment.");
+                    return true;
+                }
+                if (strings[1].toLowerCase().equals("shockwave")) {
                     ItemStack heldItem = player.getInventory().getItemInMainHand();
 
                     // If the player is holding a pickaxe...
@@ -42,6 +52,7 @@ public class BaseCommand implements CommandExecutor {
                             Main.shockwaveEnchantment.addCustomEnchant(heldItem, 1);
                             player.sendMessage(ChatColor.GOLD + "Your pickaxe has successfully been enchanted. " +
                                     "Congratulations!");
+                            return true;
                         }
                     }
 
@@ -51,8 +62,16 @@ public class BaseCommand implements CommandExecutor {
                             Main.shockwaveEnchantment.addCustomEnchant(heldItem, 1);
                             player.sendMessage(ChatColor.GOLD + "Your shovel has successfully been enchanted. " +
                                     "Congratulations!");
+                            return true;
                         }
                     }
+
+                    // If we get to this point, it means nothing was enchanted, meaning the player did not have
+                    // the correct item in-hand when they executed the command.
+                    player.sendMessage(ChatColor.RED + "ERROR: Invalid item in-hand! Please make sure you're holding " +
+                        "the correct type of item for the specified enchantment.");
+                } else {
+                    player.sendMessage(ChatColor.RED + "ERROR: Unknown enchantment " + ChatColor.DARK_RED + strings[1]);
                 }
             }
         }

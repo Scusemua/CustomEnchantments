@@ -50,7 +50,8 @@ public class ShockwaveEnchantment extends CustomEnchantment {
         return minLevel;
     }
 
-    @Override
+    /** @deprecated */
+    @Deprecated
     public int getId() {
         return id;
     }
@@ -94,8 +95,9 @@ public class ShockwaveEnchantment extends CustomEnchantment {
 
         // Set the item's display name and lore (description when hovering over the item with the mouse).
         meta.setDisplayName("Shockwave I " + displayName);
-        meta.setLore(Arrays.asList(ChatColor.GOLD + "Shockwave I"));
+        meta.setLore(Arrays.asList(ChatColor.GRAY + "Shockwave I"));
         item.setItemMeta(meta);
+
         return item;
     }
 
