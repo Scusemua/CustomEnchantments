@@ -2,14 +2,11 @@ package me.Scusemua.CustomEnchantments.Listeners;
 
 import com.codingforcookies.armorequip.ArmorEquipEvent;
 import me.Scusemua.CustomEnchantments.Core.Main;
-import me.Scusemua.CustomEnchantments.Enchantments.Armor.SpeedDemonEnchantment;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 

@@ -69,7 +69,36 @@ public class BaseCommand implements CommandExecutor {
                     // the correct item in-hand when they executed the command.
                     player.sendMessage(ChatColor.RED + "ERROR: Invalid item in-hand! Please make sure you're holding " +
                         "the correct type of item for the specified enchantment.");
-                } else {
+                }
+                else if (strings[1].toLowerCase().equals("speeddemon") ||
+                strings[1].toLowerCase().equals("speed demon")) {
+                    if (strings.length <= 2) {
+                        player.sendMessage(ChatColor.RED + "ERROR: You need to specify an enchantment level.");
+                        return true;
+                    }
+                    int level = -1;
+                    try {
+                        level = Integer.parseInt(strings[2]);
+                    } catch (NumberFormatException nfe) {
+                        player.sendMessage(ChatColor.RED + "ERROR: The specified enchantment level must be an integer.");
+                        return true;
+                    }
+                    ItemStack heldItem = player.getInventory().getItemInMainHand();
+
+                    // Ensure the given item may be enchanted. If so, enchant it.
+                    if (Main.speedDemonEnchantment.canEnchantItem(heldItem)) {
+                        Main.speedDemonEnchantment.addCustomEnchant(heldItem, level);
+                        player.sendMessage(ChatColor.GOLD + "Your item has successfully been enchanted. " +
+                                "Congratulations!");
+                        return true;
+                    }
+
+                    // If we get to this point, it means nothing was enchanted, meaning the player did not have
+                    // the correct item in-hand when they executed the command.
+                    player.sendMessage(ChatColor.RED + "ERROR: Invalid item in-hand! Please make sure you're holding " +
+                            "the correct type of item for the specified enchantment.");
+                }
+                else {
                     player.sendMessage(ChatColor.RED + "ERROR: Unknown enchantment " + ChatColor.DARK_RED + strings[1]);
                 }
             }
@@ -82,6 +111,7 @@ public class BaseCommand implements CommandExecutor {
             else if (strings[0].toLowerCase().equals("list")) {
                 player.sendMessage(ChatColor.GOLD + "Current Enchantments: ");
                 player.sendMessage(ChatColor.LIGHT_PURPLE + "Shockwave <I, II, III>: Unleash MUCH more powerful pickaxe/shovel capabilities.");
+                player.sendMessage(ChatColor.LIGHT_PURPLE + "Speed Demon <I, II>: Permanent speed boost while wearing enchanted armor.");
                 player.sendMessage("");
             }
         }
