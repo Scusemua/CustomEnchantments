@@ -6,7 +6,21 @@
 
     <groupId>CustomEnchantments</groupId>
     <artifactId>customenchantments</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
+
+    <build>
+        <finalName>CustomEnchantments</finalName>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>plugin.yml</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 
     <repositories>
         <repository>
@@ -17,15 +31,23 @@
             <id>sk89q-repo</id>
             <url>http://maven.sk89q.com/repo/</url>
         </repository>
+        <!--Essentials API-->
         <repository>
             <id>ess-repo</id>
             <url>http://repo.ess3.net/content/groups/essentials</url>
         </repository>
+        <!--Vault API-->
         <repository>
             <id>vault-repo</id>
             <url>http://nexus.hc.to/content/repositories/pub_releases</url>
         </repository>
+        <!--Armor Equip Event-->
+        <repository>
+            <id>codingforcookies-releases</id>
+            <url>http://repo.codingforcookies.com/content/repositories/releases/</url>
+        </repository>
     </repositories>
+
     <dependencies>
         <!--Spigot API-->
         <dependency>
@@ -47,6 +69,13 @@
             <artifactId>VaultAPI</artifactId>
             <version>1.6</version>
             <scope>provided</scope>
+        </dependency>
+        <!-- Armor Equip Event API-->
+        <dependency>
+            <groupId>com.codingforcookies</groupId>
+            <artifactId>ArmorEquipEvent</artifactId>
+            <version>1.6.3</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
 

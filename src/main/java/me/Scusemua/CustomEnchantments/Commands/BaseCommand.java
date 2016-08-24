@@ -57,24 +57,12 @@ public class BaseCommand implements CommandExecutor {
                     }
                     ItemStack heldItem = player.getInventory().getItemInMainHand();
 
-                    // If the player is holding a pickaxe...
-                    for (Material m : MaterialTypes.PICKAXES) {
-                        if (heldItem.getType() == m) {
-                            Main.shockwaveEnchantment.addCustomEnchant(heldItem, level);
-                            player.sendMessage(ChatColor.GOLD + "Your pickaxe has successfully been enchanted. " +
-                                    "Congratulations!");
-                            return true;
-                        }
-                    }
-
-                    // If the player is holding a shovel...
-                    for (Material m : MaterialTypes.SHOVELS) {
-                        if (heldItem.getType() == m) {
-                            Main.shockwaveEnchantment.addCustomEnchant(heldItem, level);
-                            player.sendMessage(ChatColor.GOLD + "Your shovel has successfully been enchanted. " +
-                                    "Congratulations!");
-                            return true;
-                        }
+                    // Ensure the given item may be enchanted. If so, enchant it.
+                    if (Main.shockwaveEnchantment.canEnchantItem(heldItem)) {
+                        Main.shockwaveEnchantment.addCustomEnchant(heldItem, level);
+                        player.sendMessage(ChatColor.GOLD + "Your item has successfully been enchanted. " +
+                                "Congratulations!");
+                        return true;
                     }
 
                     // If we get to this point, it means nothing was enchanted, meaning the player did not have

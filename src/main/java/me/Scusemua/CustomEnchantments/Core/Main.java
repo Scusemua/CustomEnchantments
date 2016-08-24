@@ -1,9 +1,11 @@
 package me.Scusemua.CustomEnchantments.Core;
 
 import me.Scusemua.CustomEnchantments.Commands.BaseCommand;
+import me.Scusemua.CustomEnchantments.Enchantments.Armor.SpeedDemonEnchantment;
 import me.Scusemua.CustomEnchantments.Enchantments.CustomEnchantment;
-import me.Scusemua.CustomEnchantments.Enchantments.ShockwaveEnchantment;
+import me.Scusemua.CustomEnchantments.Enchantments.Tools.ShockwaveEnchantment;
 import me.Scusemua.CustomEnchantments.Listeners.ShockwaveListener;
+import me.Scusemua.CustomEnchantments.Listeners.SpeedDemonListener;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,9 +18,11 @@ import java.util.HashMap;
 public class Main extends JavaPlugin {
 
     public static CustomEnchantment shockwaveEnchantment = new ShockwaveEnchantment(80);
+    public static CustomEnchantment speedDemonEnchantment = new SpeedDemonEnchantment(81);
 
     @Override
     public void onEnable() {
+        getLogger().info("Enabling CustomEnchantments.");
         try {
             Field byIdField = Enchantment.class.getDeclaredField("byId");
             Field byNameField = Enchantment.class.getDeclaredField("byName");
@@ -36,6 +40,12 @@ public class Main extends JavaPlugin {
 
             if(byName.containsKey("Shockwave"))
                 byName.remove("Shockwave");
+
+            if(byId.containsKey(81))
+                byId.remove(81);
+
+            if(byName.containsKey("Speed Demon"))
+                byName.remove("Speed Demon");
         } catch (Exception ignored) { }
 
         try {
@@ -48,6 +58,7 @@ public class Main extends JavaPlugin {
             }
             try {
                 Enchantment.registerEnchantment(shockwaveEnchantment);
+                Enchantment.registerEnchantment(speedDemonEnchantment);
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             } catch (Exception e) {
@@ -62,6 +73,7 @@ public class Main extends JavaPlugin {
 
         // Events
         getServer().getPluginManager().registerEvents(new ShockwaveListener(this), this);
+        getServer().getPluginManager().registerEvents(new SpeedDemonListener(this), this);
     }
 
     @Override

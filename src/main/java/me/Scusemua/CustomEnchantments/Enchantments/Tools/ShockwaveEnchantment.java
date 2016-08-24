@@ -1,6 +1,7 @@
-package me.Scusemua.CustomEnchantments.Enchantments;
+package me.Scusemua.CustomEnchantments.Enchantments.Tools;
 
 import me.Scusemua.CustomEnchantments.Core.Main;
+import me.Scusemua.CustomEnchantments.Enchantments.CustomEnchantment;
 import me.Scusemua.CustomEnchantments.Utility.MaterialTypes;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -43,12 +44,6 @@ public class ShockwaveEnchantment extends CustomEnchantment {
             Material.LAPIS_ORE,
             Material.OBSIDIAN);
 
-    private String name;        // Name of the custom enchantment.
-    private int maxLevel;       // Maximum level of the custom enchantment.
-    private int minLevel;       // Minimum level of the custom enchantment.
-    private int startingLevel;  // Default level of the custom enchantment.
-    private int id;             // ID number for the custom enchantment.
-
     public ShockwaveEnchantment(int id) {
         super(id);
 
@@ -56,7 +51,6 @@ public class ShockwaveEnchantment extends CustomEnchantment {
         maxLevel = 3;
         minLevel = 1;
         startingLevel = 1;
-        this.id = id;
     }
 
     @Override
@@ -79,12 +73,6 @@ public class ShockwaveEnchantment extends CustomEnchantment {
         return minLevel;
     }
 
-    /** @deprecated */
-    @Deprecated
-    public int getId() {
-        return id;
-    }
-
     @Override
     public EnchantmentTarget getItemTarget() {
         return EnchantmentTarget.TOOL;
@@ -101,7 +89,7 @@ public class ShockwaveEnchantment extends CustomEnchantment {
     @Override
     public boolean canEnchantItem(ItemStack itemStack) {
         if (MaterialTypes.SHOVELS.contains(itemStack.getType())) return true;
-        if (MaterialTypes.PICKAXES.contains(itemStack.getType())) return true;
+        else if (MaterialTypes.PICKAXES.contains(itemStack.getType())) return true;
 
         return false;
     }
@@ -110,7 +98,7 @@ public class ShockwaveEnchantment extends CustomEnchantment {
      * Add the Shockwave enchantment to the given item.
      */
     public ItemStack addCustomEnchant(ItemStack item, int level) {
-        item.addUnsafeEnchantment(Main.shockwaveEnchantment, 1);
+        item.addUnsafeEnchantment(Main.shockwaveEnchantment, level);
         ItemMeta meta = item.getItemMeta();
 
         if (level > maxLevel) level = maxLevel;
@@ -130,35 +118,5 @@ public class ShockwaveEnchantment extends CustomEnchantment {
         item.setItemMeta(meta);
 
         return item;
-    }
-
-    /**
-     * Returns the roman numeral version of the given number.
-     */
-    public String getRomanNumeral(int num) {
-        switch(num) {
-            case 1:
-                return "I";
-            case 2:
-                return "II";
-            case 3:
-                return "III";
-            case 4:
-                return "IV";
-            case 5:
-                return "V";
-            case 6:
-                return "VI";
-            case 7:
-                return "VII";
-            case 8:
-                return "VIII";
-            case 9:
-                return "IX";
-            case 10:
-                return "X";
-            default:
-                return "ERR_IMPROPER_VAL";
-        }
     }
 }

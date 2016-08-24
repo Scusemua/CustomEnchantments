@@ -1,6 +1,6 @@
 package me.Scusemua.CustomEnchantments.Listeners;
 
-import me.Scusemua.CustomEnchantments.Enchantments.ShockwaveEnchantment;
+import me.Scusemua.CustomEnchantments.Enchantments.Tools.ShockwaveEnchantment;
 import me.Scusemua.CustomEnchantments.Utility.MaterialTypes;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,11 +14,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.plugin.Plugin;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static com.sun.jmx.snmp.ThreadContext.contains;
 
 public class ShockwaveListener implements Listener {
     private Plugin myPlugin;
