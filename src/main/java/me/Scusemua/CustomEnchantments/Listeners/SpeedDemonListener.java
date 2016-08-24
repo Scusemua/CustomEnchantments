@@ -23,10 +23,8 @@ public class SpeedDemonListener implements Listener {
     public void onArmorEquipped(ArmorEquipEvent event) {
         // If we are EQUIPPING a piece of armor...
         if(event.getNewArmorPiece() != null && event.getNewArmorPiece().getType() != Material.AIR) {
-            event.getPlayer().sendMessage("Armor equipped...");
             // If the armor piece is of the proper type for the SpeedDemon enchantment...
             if (Main.speedDemonEnchantment.canEnchantItem(event.getNewArmorPiece())) {
-                event.getPlayer().sendMessage("Proper armor type equipped...");
                 // Check if the armor piece was enchanted with Speed Demon.
                 if (event.getNewArmorPiece().hasItemMeta()) {
                     List<String> itemLore = event.getNewArmorPiece().getItemMeta().getLore();
@@ -48,12 +46,13 @@ public class SpeedDemonListener implements Listener {
             // If the armor piece is of the proper type for the SpeedDemon enchantment...
             if (Main.speedDemonEnchantment.canEnchantItem(event.getOldArmorPiece())) {
                 // Check if the armor piece was enchanted with Speed Demon.
-                if (event.getNewArmorPiece().hasItemMeta()) {
-                    List<String> itemLore = event.getNewArmorPiece().getItemMeta().getLore();
-                    // Iterate through each line of the item lore. If the item lore has "Shockwave"
-                    // in it, the tool is a "Shockwave"-enchanted tool.
+                if (event.getOldArmorPiece().hasItemMeta()) {
+                    List<String> itemLore = event.getOldArmorPiece().getItemMeta().getLore();
+                    // Iterate through each line of the item lore. If the item lore has "Speed Demon"
+                    // in it, the tool is a "Speed Demon"-enchanted tool.
                     for (String s : itemLore) {
-                        if (s.contains("Shockwave")) {
+                        if (s.contains("Speed Demon")) {
+                            event.getPlayer().sendMessage("Speed Demon enchanted armor being removed.");
                             for (PotionEffect pe : event.getPlayer().getActivePotionEffects()) {
                                 if (pe.getType() == PotionEffectType.SPEED && pe.getDuration() >= Integer.MAX_VALUE / 2) {
                                     event.getPlayer().removePotionEffect(PotionEffectType.SPEED);
