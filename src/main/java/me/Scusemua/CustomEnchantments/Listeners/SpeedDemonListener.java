@@ -35,7 +35,7 @@ public class SpeedDemonListener implements Listener {
                             int level;
                             if (s.contains("II")) level = 2;
                             else level = 1;
-                            event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, level));
+                            event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, level - 1));
                             return;
                         }
                     }
@@ -52,9 +52,8 @@ public class SpeedDemonListener implements Listener {
                     // in it, the tool is a "Speed Demon"-enchanted tool.
                     for (String s : itemLore) {
                         if (s.contains("Speed Demon")) {
-                            event.getPlayer().sendMessage("Speed Demon enchanted armor being removed.");
                             for (PotionEffect pe : event.getPlayer().getActivePotionEffects()) {
-                                if (pe.getType() == PotionEffectType.SPEED && pe.getDuration() >= Integer.MAX_VALUE / 2) {
+                                if (pe.getType().getName().contains("SPEED") && pe.getDuration() >= Integer.MAX_VALUE / 2) {
                                     event.getPlayer().removePotionEffect(PotionEffectType.SPEED);
                                     return;
                                 }

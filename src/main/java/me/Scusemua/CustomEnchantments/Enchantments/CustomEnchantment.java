@@ -57,4 +57,13 @@ public abstract class CustomEnchantment extends Enchantment {
         }
     }
 
+    /*
+    Potential Enchantments:
+        Pickaxe - AutoSmelt
+        Fishing Pole - AutoCook
+        Sword - Wolf Tamer (chance to spawn wolf)
+        Axe - Thor (Chance of lightning + explosion)
+        Sword/Axe - Mage (chance to fire fireball in direction of swing)
+        Sword/Axe - Necromancer (chance to summon zombies/skeletons to fight for you)
+     */
 }
