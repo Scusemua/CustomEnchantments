@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Benjamin on 8/21/2016.
+ * Custom Enchantment which causes pickaxes to mine 3x1 areas instead of 1x1.
  */
 public class ShockwaveEnchantment extends CustomEnchantment {
 
@@ -47,30 +47,11 @@ public class ShockwaveEnchantment extends CustomEnchantment {
     public ShockwaveEnchantment(int id) {
         super(id);
 
-        name = "Shockwave";
+        name = "SHOCKWAVE";
         maxLevel = 3;
         minLevel = 1;
         startingLevel = 1;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public int getMaxLevel() {
-        return maxLevel;
-    }
-
-    @Override
-    public int getStartLevel() {
-        return startingLevel;
-    }
-
-    @Override
-    public int getMinLevel() {
-        return minLevel;
+        description = "<I, II, III>: Unleash MUCH more powerful pickaxe/shovel capabilities.";
     }
 
     @Override
@@ -102,15 +83,6 @@ public class ShockwaveEnchantment extends CustomEnchantment {
         ItemMeta meta = item.getItemMeta();
 
         if (level > maxLevel) level = maxLevel;
-
-        // Determine whether or not the item is a shovel or a pickaxe.
-        // Depending on what the item is, set the displayName String to the proper value.
-        String displayName;
-        if (MaterialTypes.SHOVELS.contains(item.getType())) {
-            displayName = "Shovel";
-        } else {
-            displayName = "Pickaxe";
-        }
 
         // Set the item's lore (description when hovering over the item with the mouse).
         meta.setLore(Arrays.asList(ChatColor.DARK_GRAY + "Shockwave " + getRomanNumeral(level)));

@@ -4,6 +4,10 @@ import me.Scusemua.CustomEnchantments.Commands.BaseCommand;
 import me.Scusemua.CustomEnchantments.Enchantments.Armor.SpeedDemonEnchantment;
 import me.Scusemua.CustomEnchantments.Enchantments.CustomEnchantment;
 import me.Scusemua.CustomEnchantments.Enchantments.Tools.ShockwaveEnchantment;
+import me.Scusemua.CustomEnchantments.Enchantments.Weapons.ShotgunEnchantment;
+import me.Scusemua.CustomEnchantments.Enchantments.Weapons.ShotspeedEnchantment;
+import me.Scusemua.CustomEnchantments.Listeners.ShotgunListener;
+import me.Scusemua.CustomEnchantments.Listeners.ShotspeedListener;
 import me.Scusemua.CustomEnchantments.Listeners.ShockwaveListener;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
@@ -20,9 +24,15 @@ import java.util.HashMap;
  */
 public class Main extends JavaPlugin {
     public static CustomEnchantment shockwaveEnchantment = new ShockwaveEnchantment(80);
+    public static CustomEnchantment speedDemonEnchantment = new SpeedDemonEnchantment(81);
+    public static CustomEnchantment shotspeedEnchantment = new ShotspeedEnchantment(82);
+    public static CustomEnchantment shotgunEnchantment = new ShotgunEnchantment(83);
+
+    public static CustomEnchantment[] CustomEnchantments = new CustomEnchantment[]{shockwaveEnchantment, speedDemonEnchantment,
+    shotgunEnchantment, shotspeedEnchantment};
+
     public static Permission perms = null;
     public static Chat chat = null;
-    public static CustomEnchantment speedDemonEnchantment = new SpeedDemonEnchantment(81);
 
     @Override
     public void onEnable() {
@@ -39,17 +49,13 @@ public class Main extends JavaPlugin {
             @SuppressWarnings("unchecked")
             HashMap<String, Enchantment> byName = (HashMap<String, Enchantment>) byNameField.get(null);
 
-            if(byId.containsKey(80))
-                byId.remove(80);
+            for (CustomEnchantment ce : CustomEnchantments) {
+                if (byId.containsKey(ce.getIdNum()))
+                    byId.remove(ce.getIdNum());
 
-            if(byName.containsKey("Shockwave"))
-                byName.remove("Shockwave");
-
-            if(byId.containsKey(81))
-                byId.remove(81);
-
-            if(byName.containsKey("Speed Demon"))
-                byName.remove("Speed Demon");
+                if (byName.containsKey(ce.getName()))
+                    byName.remove(ce.getName());
+            }
         } catch (Exception ignored) { }
 
         try {
@@ -75,13 +81,15 @@ public class Main extends JavaPlugin {
         // Commands
         this.getCommand("customenchantments").setExecutor(new BaseCommand(this));
 
-        // Events
-        getServer().getPluginManager().registerEvents(new ShockwaveListener(this), this);
-
         // Set up chat & permissions.
         setupPermissions();
         setupChat();
+
+        // Events
+        getServer().getPluginManager().registerEvents(new ShockwaveListener(this), this);
         getServer().getPluginManager().registerEvents(new SpeedDemonListener(this), this);
+        getServer().getPluginManager().registerEvents(new ShotspeedListener(this), this);
+        getServer().getPluginManager().registerEvents(new ShotgunListener(this), this);
     }
 
     @Override

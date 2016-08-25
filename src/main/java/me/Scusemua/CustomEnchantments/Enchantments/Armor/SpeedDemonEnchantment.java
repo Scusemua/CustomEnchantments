@@ -12,15 +12,19 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
 
+/**
+ * Custom Enchantment which applies Speed I or Speed II depending on level when wearing enchanted boots.
+ */
 public class SpeedDemonEnchantment extends CustomEnchantment {
 
     public SpeedDemonEnchantment(int id) {
         super(id);
 
-        name = "Speed Demon";
+        name = "SPEED_DEMON";
         maxLevel = 2;
         minLevel = 1;
         startingLevel = 1;
+        description = "<I, II>: Permanent speed boost while wearing enchanted armor.";
     }
 
 
@@ -30,31 +34,11 @@ public class SpeedDemonEnchantment extends CustomEnchantment {
 
         if (level > maxLevel) level = maxLevel;
 
-        // Determine whether or not the item is a shovel or a pickaxe.
-        // Depending on what the item is, set the displayName String to the proper value.
-        String displayName = "Boots";
-
         // Set the item's lore (description when hovering over the item with the mouse).
         meta.setLore(Arrays.asList(ChatColor.DARK_GRAY + "Speed Demon " + getRomanNumeral(level)));
         item.setItemMeta(meta);
 
         return item;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getMaxLevel() {
-        return maxLevel;
-    }
-
-    public int getStartLevel() {
-        return startingLevel;
-    }
-
-    public int getMinLevel() {
-        return minLevel;
     }
 
     /**
