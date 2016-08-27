@@ -4,14 +4,12 @@ import me.Scusemua.CustomEnchantments.Commands.BaseCommand;
 import me.Scusemua.CustomEnchantments.Enchantments.Armor.SpeedDemonEnchantment;
 import me.Scusemua.CustomEnchantments.Enchantments.CustomEnchantment;
 import me.Scusemua.CustomEnchantments.Enchantments.Tools.ShockwaveEnchantment;
+import me.Scusemua.CustomEnchantments.Enchantments.Weapons.BerserkerEnchantment;
 import me.Scusemua.CustomEnchantments.Enchantments.Weapons.ShotgunEnchantment;
 import me.Scusemua.CustomEnchantments.Enchantments.Weapons.ShotspeedEnchantment;
-import me.Scusemua.CustomEnchantments.Listeners.ShotgunListener;
-import me.Scusemua.CustomEnchantments.Listeners.ShotspeedListener;
-import me.Scusemua.CustomEnchantments.Listeners.ShockwaveListener;
+import me.Scusemua.CustomEnchantments.Listeners.*;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
-import me.Scusemua.CustomEnchantments.Listeners.SpeedDemonListener;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,9 +25,10 @@ public class Main extends JavaPlugin {
     public static CustomEnchantment speedDemonEnchantment = new SpeedDemonEnchantment(81);
     public static CustomEnchantment shotspeedEnchantment = new ShotspeedEnchantment(82);
     public static CustomEnchantment shotgunEnchantment = new ShotgunEnchantment(83);
+    public static CustomEnchantment berserkerEnchantment = new BerserkerEnchantment(84);
 
     public static CustomEnchantment[] CustomEnchantments = new CustomEnchantment[]{shockwaveEnchantment, speedDemonEnchantment,
-    shotgunEnchantment, shotspeedEnchantment};
+    shotgunEnchantment, shotspeedEnchantment, berserkerEnchantment};
 
     public static Permission perms = null;
     public static Chat chat = null;
@@ -90,6 +89,7 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new SpeedDemonListener(this), this);
         getServer().getPluginManager().registerEvents(new ShotspeedListener(this), this);
         getServer().getPluginManager().registerEvents(new ShotgunListener(this), this);
+        getServer().getPluginManager().registerEvents(new BerserkerListener(this), this);
     }
 
     @Override
