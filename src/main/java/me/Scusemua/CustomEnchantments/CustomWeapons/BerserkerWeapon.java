@@ -37,10 +37,14 @@ public class BerserkerWeapon extends ItemStack {
     public void decrementLevel(int amount) {
         currentLevel -= amount;
 
-        if (currentLevel < 0) currentLevel = 0; // Minimum enchantment is zero.
-
         // Update the weapon's enchantment.
         baseItem.removeEnchantment(Enchantment.DAMAGE_ALL);
+
+        if (currentLevel < 0) {
+            currentLevel = 0; // Minimum enchantment is zero.
+            return; // If the level is zero, we don't want to add the enchantment.
+        }
+
         baseItem.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, currentLevel);
     }
 

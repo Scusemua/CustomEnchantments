@@ -8,6 +8,7 @@ import me.Scusemua.CustomEnchantments.Enchantments.Weapons.BerserkerEnchantment;
 import me.Scusemua.CustomEnchantments.Enchantments.Weapons.ShotgunEnchantment;
 import me.Scusemua.CustomEnchantments.Enchantments.Weapons.ShotspeedEnchantment;
 import me.Scusemua.CustomEnchantments.Listeners.*;
+import me.Scusemua.CustomEnchantments.ScheduledTasks.BerserkerTask;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.enchantments.Enchantment;
@@ -90,6 +91,8 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ShotspeedListener(this), this);
         getServer().getPluginManager().registerEvents(new ShotgunListener(this), this);
         getServer().getPluginManager().registerEvents(new BerserkerListener(this), this);
+
+        BerserkerTask berserkerTask = new BerserkerTask(this);
     }
 
     @Override

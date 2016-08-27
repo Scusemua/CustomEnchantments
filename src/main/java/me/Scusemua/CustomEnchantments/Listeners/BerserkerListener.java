@@ -45,8 +45,12 @@ public class BerserkerListener implements Listener {
                                     // Increase the item's damage output by upping the BerserkerLevel (sharpness enchantment).
                                     itemInMainHand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, currentBerserkerLevel + 1);
 
-                                    BerserkerTask.weaponsHashMap.get(itemInMainHand).setRecentKill(true);
-                                    BerserkerTask.weaponsHashMap.get(itemInMainHand).increaseCurrentLevel(1);
+                                    if (BerserkerTask.weaponsHashMap.get(itemInMainHand) != null) {
+                                        BerserkerTask.weaponsHashMap.get(itemInMainHand).setRecentKill(true);
+                                        BerserkerTask.weaponsHashMap.get(itemInMainHand).increaseCurrentLevel(1);
+                                    } else {
+                                        myPlugin.getLogger().info("Null reference for some reason...");
+                                    }
                                     return;
                                 }
                             }

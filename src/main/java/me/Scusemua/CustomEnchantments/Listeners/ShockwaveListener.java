@@ -78,14 +78,15 @@ public class ShockwaveListener implements Listener {
 
                     // Now we need to determine if the block was above or below the player. If it was,
                     // we handle things a little differently. Different locations need to be checked.
-                    // Determine if the player hit a block above or below them.
-                    boolean differentHeightLevel = false;
-                    if (player.getLocation().getY() - y >= 1 || player.getLocation().getY() - y <= -1) {
-                        differentHeightLevel = true;
+                    // Determine if the player hit a block above or below them by checking their pitch.
+                    // A pitch of 90 is straight down, while a pitch of -90 is straight up.
+                    boolean lookingUpOrDown = false;
+                    if (player.getLocation().getPitch() >= 65f || player.getLocation().getPitch() <= -65f) {
+                        lookingUpOrDown = true;
                     }
 
                     // If the block was at a different height level, change the locations we're checking.
-                    if (differentHeightLevel) {
+                    if (lookingUpOrDown) {
                         locationsToCheck =
                                 Arrays.asList(new Location(currentWorld, x+1, y, z+1),
                                         new Location(currentWorld, x, y, z+1),

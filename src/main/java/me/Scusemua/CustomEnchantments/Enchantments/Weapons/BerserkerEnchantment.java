@@ -20,7 +20,7 @@ public class BerserkerEnchantment extends CustomEnchantment {
 
     public BerserkerEnchantment(int id) {
         super(id);
-        name = "BerserkerEnchantment";
+        name = "BERSERKER";
         maxLevel = 1;
         minLevel = 1;
         startingLevel = 1;
