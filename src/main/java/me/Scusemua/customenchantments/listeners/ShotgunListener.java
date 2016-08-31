@@ -1,10 +1,8 @@
-package me.Scusemua.CustomEnchantments.Listeners;
+package me.Scusemua.customenchantments.listeners;
 
-import me.Scusemua.CustomEnchantments.Core.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -18,8 +16,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Random;
 
 /**

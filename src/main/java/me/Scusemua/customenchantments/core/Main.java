@@ -1,14 +1,15 @@
-package me.Scusemua.CustomEnchantments.Core;
+package me.Scusemua.customenchantments.core;
 
-import me.Scusemua.CustomEnchantments.Commands.BaseCommand;
-import me.Scusemua.CustomEnchantments.Enchantments.Armor.SpeedDemonEnchantment;
-import me.Scusemua.CustomEnchantments.Enchantments.CustomEnchantment;
-import me.Scusemua.CustomEnchantments.Enchantments.Tools.ShockwaveEnchantment;
-import me.Scusemua.CustomEnchantments.Enchantments.Weapons.BerserkerEnchantment;
-import me.Scusemua.CustomEnchantments.Enchantments.Weapons.ShotgunEnchantment;
-import me.Scusemua.CustomEnchantments.Enchantments.Weapons.ShotspeedEnchantment;
-import me.Scusemua.CustomEnchantments.Listeners.*;
-import me.Scusemua.CustomEnchantments.ScheduledTasks.BerserkerTask;
+import me.Scusemua.customenchantments.commands.BaseCommand;
+import me.Scusemua.customenchantments.customweapons.BerserkerWeapon;
+import me.Scusemua.customenchantments.enchantments.armor.SpeedDemonEnchantment;
+import me.Scusemua.customenchantments.enchantments.CustomEnchantment;
+import me.Scusemua.customenchantments.enchantments.tools.ShockwaveEnchantment;
+import me.Scusemua.customenchantments.enchantments.weapons.BerserkerEnchantment;
+import me.Scusemua.customenchantments.enchantments.weapons.ShotgunEnchantment;
+import me.Scusemua.customenchantments.enchantments.weapons.ShotspeedEnchantment;
+import me.Scusemua.customenchantments.listeners.*;
+import me.Scusemua.customenchantments.scheduledtasks.BerserkerTask;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.enchantments.Enchantment;
@@ -17,10 +18,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.Random;
 
-/**
- * Created by Benjamin on 8/21/2016.
- */
 public class Main extends JavaPlugin {
     public static CustomEnchantment shockwaveEnchantment = new ShockwaveEnchantment(80);
     public static CustomEnchantment speedDemonEnchantment = new SpeedDemonEnchantment(81);
@@ -31,11 +30,14 @@ public class Main extends JavaPlugin {
     public static CustomEnchantment[] CustomEnchantments = new CustomEnchantment[]{shockwaveEnchantment, speedDemonEnchantment,
     shotgunEnchantment, shotspeedEnchantment, berserkerEnchantment};
 
+    public static String possibleIDChars = "abcdefghijklmnopqrstuvwxyz1234567890";
+
     public static Permission perms = null;
     public static Chat chat = null;
 
     @Override
     public void onEnable() {
+        loadConfiguration();
         getLogger().info("Enabling CustomEnchantments.");
         try {
             Field byIdField = Enchantment.class.getDeclaredField("byId");
@@ -78,7 +80,7 @@ public class Main extends JavaPlugin {
             e.printStackTrace();
         }
 
-        // Commands
+        // commands
         this.getCommand("customenchantments").setExecutor(new BaseCommand(this));
 
         // Set up chat & permissions.
@@ -97,7 +99,9 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        for (BerserkerWeapon bw : BerserkerTask.weapons) {
+            bw.clearSharpnessEnchantment();
+        }
     }
 
     /**
@@ -118,5 +122,26 @@ public class Main extends JavaPlugin {
         RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
         chat = rsp.getProvider();
         return chat != null;
+    }
+
+    /**
+     * Loads the plugin's configuration and data files.
+     */
+    private void loadConfiguration() {
+        this.getConfig().options().copyDefaults(true);
+        this.saveConfig();
+    }
+
+    /**
+     * Generate a random string using the given Random Number Generator, possible characters, and length of random string.
+     */
+    public static String generateString(Random rng, String characters, int length)
+    {
+        char[] text = new char[length];
+        for (int i = 0; i < length; i++)
+        {
+            text[i] = characters.charAt(rng.nextInt(characters.length()));
+        }
+        return new String(text);
     }
 }

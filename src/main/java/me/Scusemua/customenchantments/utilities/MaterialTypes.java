@@ -1,8 +1,7 @@
-package me.Scusemua.CustomEnchantments.Utility;
+package me.Scusemua.customenchantments.utilities;
 
 import org.bukkit.Material;
 
-import java.util.ArrayList;
 import java.util.EnumSet;
 
 /**

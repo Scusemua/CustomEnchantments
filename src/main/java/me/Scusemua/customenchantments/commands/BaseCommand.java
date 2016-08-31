@@ -1,15 +1,12 @@
-package me.Scusemua.CustomEnchantments.Commands;
+package me.Scusemua.customenchantments.commands;
 
-import me.Scusemua.CustomEnchantments.Core.Main;
-import me.Scusemua.CustomEnchantments.Enchantments.CustomEnchantment;
-import me.Scusemua.CustomEnchantments.Utility.MaterialTypes;
+import me.Scusemua.customenchantments.core.Main;
+import me.Scusemua.customenchantments.enchantments.CustomEnchantment;
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
@@ -65,7 +62,7 @@ public class BaseCommand implements CommandExecutor {
                     player.sendMessage(ChatColor.RED + "ERROR: You are lacking sufficient permissions to execute that command!");
                     return true;
                 }
-                player.sendMessage(ChatColor.GOLD + "Commands: ");
+                player.sendMessage(ChatColor.GOLD + "commands: ");
                 player.sendMessage(ChatColor.DARK_PURPLE + "/customenchantments add <enchantment_name> <level>");
                 player.sendMessage(ChatColor.DARK_PURPLE + "/customenchantments list");
                 player.sendMessage("");

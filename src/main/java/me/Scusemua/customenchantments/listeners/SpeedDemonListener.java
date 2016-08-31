@@ -1,7 +1,7 @@
-package me.Scusemua.CustomEnchantments.Listeners;
+package me.Scusemua.customenchantments.listeners;
 
 import com.codingforcookies.armorequip.ArmorEquipEvent;
-import me.Scusemua.CustomEnchantments.Core.Main;
+import me.Scusemua.customenchantments.core.Main;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

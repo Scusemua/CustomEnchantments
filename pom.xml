@@ -32,7 +32,7 @@
             <id>vault-repo</id>
             <url>http://nexus.hc.to/content/repositories/pub_releases</url>
         </repository>
-        <!--Armor Equip Event-->
+        <!--armor Equip Event-->
         <repository>
             <id>codingforcookies-releases</id>
             <url>http://repo.codingforcookies.com/content/repositories/releases/</url>
@@ -61,7 +61,7 @@
             <version>1.6</version>
             <scope>provided</scope>
         </dependency>
-        <!-- Armor Equip Event API-->
+        <!-- armor Equip Event API-->
         <dependency>
             <groupId>com.codingforcookies</groupId>
             <artifactId>ArmorEquipEvent</artifactId>

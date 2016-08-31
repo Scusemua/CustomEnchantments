@@ -1,4 +1,4 @@
-package me.Scusemua.CustomEnchantments.Enchantments;
+package me.Scusemua.customenchantments.enchantments;
 
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.enchantments.EnchantmentTarget;
@@ -85,7 +85,7 @@ public abstract class CustomEnchantment extends Enchantment {
     }
 
     /*
-    Potential Enchantments:
+    Potential enchantments:
         Pickaxe - AutoSmelt
         Fishing Pole - AutoCook
         Sword - Wolf Tamer (chance to spawn wolf)

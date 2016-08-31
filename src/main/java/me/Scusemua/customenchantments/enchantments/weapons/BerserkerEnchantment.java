@@ -1,9 +1,10 @@
-package me.Scusemua.CustomEnchantments.Enchantments.Weapons;
+package me.Scusemua.customenchantments.enchantments.weapons;
 
-import me.Scusemua.CustomEnchantments.Core.Main;
-import me.Scusemua.CustomEnchantments.CustomWeapons.BerserkerWeapon;
-import me.Scusemua.CustomEnchantments.Enchantments.CustomEnchantment;
-import me.Scusemua.CustomEnchantments.Utility.MaterialTypes;
+import me.Scusemua.customenchantments.core.Main;
+import me.Scusemua.customenchantments.customweapons.BerserkerWeapon;
+import me.Scusemua.customenchantments.enchantments.CustomEnchantment;
+import me.Scusemua.customenchantments.scheduledtasks.BerserkerTask;
+import me.Scusemua.customenchantments.utilities.MaterialTypes;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -28,16 +29,19 @@ public class BerserkerEnchantment extends CustomEnchantment {
     }
 
     public ItemStack addCustomEnchant(ItemStack item, int level) {
-        item.addUnsafeEnchantment(Main.shotgunEnchantment, level);
+        item.addUnsafeEnchantment(Main.berserkerEnchantment, level);
         ItemMeta meta = item.getItemMeta();
 
         if (level > maxLevel) level = maxLevel;
 
+        BerserkerWeapon newWeapon = new BerserkerWeapon(item);
+
         // Set the item's lore (description when hovering over the item with the mouse).
-        meta.setLore(Arrays.asList(ChatColor.DARK_GRAY + "Berserker " + getRomanNumeral(level)));
+        meta.setLore(Arrays.asList(ChatColor.DARK_GRAY + "Berserker " + getRomanNumeral(level), "", "", newWeapon.getWeaponID()));
         item.setItemMeta(meta);
 
-        BerserkerWeapon newWeapon = new BerserkerWeapon(item, 0);
+        // Add a reference to this to the weapons ArrayList<BerserkerWeapon> within BerserkerTask.
+        BerserkerTask.weapons.add(newWeapon);
 
         return item;
     }

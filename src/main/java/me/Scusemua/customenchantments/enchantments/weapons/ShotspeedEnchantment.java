@@ -1,7 +1,7 @@
-package me.Scusemua.CustomEnchantments.Enchantments.Weapons;
+package me.Scusemua.customenchantments.enchantments.weapons;
 
-import me.Scusemua.CustomEnchantments.Core.Main;
-import me.Scusemua.CustomEnchantments.Enchantments.CustomEnchantment;
+import me.Scusemua.customenchantments.core.Main;
+import me.Scusemua.customenchantments.enchantments.CustomEnchantment;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

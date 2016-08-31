@@ -1,7 +1,6 @@
-package me.Scusemua.CustomEnchantments.Utility;
+package me.Scusemua.customenchantments.utilities;
 
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 
 import java.util.EnumSet;
 

@@ -1,0 +1,4 @@
+Settings:
+  Enchantments:
+    Berserker:
+      TimeBetweenKillsBeforeDecrement: 5

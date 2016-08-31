@@ -1,7 +1,7 @@
-package me.Scusemua.CustomEnchantments.Listeners;
+package me.Scusemua.customenchantments.listeners;
 
-import me.Scusemua.CustomEnchantments.Enchantments.Tools.ShockwaveEnchantment;
-import me.Scusemua.CustomEnchantments.Utility.MaterialTypes;
+import me.Scusemua.customenchantments.enchantments.tools.ShockwaveEnchantment;
+import me.Scusemua.customenchantments.utilities.MaterialTypes;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -81,7 +81,7 @@ public class ShockwaveListener implements Listener {
                     // Determine if the player hit a block above or below them by checking their pitch.
                     // A pitch of 90 is straight down, while a pitch of -90 is straight up.
                     boolean lookingUpOrDown = false;
-                    if (player.getLocation().getPitch() >= 65f || player.getLocation().getPitch() <= -65f) {
+                    if (player.getLocation().getPitch() >= 55f || player.getLocation().getPitch() <= -55f) {
                         lookingUpOrDown = true;
                     }
 

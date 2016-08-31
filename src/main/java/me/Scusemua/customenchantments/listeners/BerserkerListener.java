@@ -1,7 +1,9 @@
-package me.Scusemua.CustomEnchantments.Listeners;
+package me.Scusemua.customenchantments.listeners;
 
-import me.Scusemua.CustomEnchantments.ScheduledTasks.BerserkerTask;
-import me.Scusemua.CustomEnchantments.Utility.EntityTypes;
+import me.Scusemua.customenchantments.customweapons.BerserkerWeapon;
+import me.Scusemua.customenchantments.scheduledtasks.BerserkerTask;
+import me.Scusemua.customenchantments.utilities.EntityTypes;
+import org.bukkit.EntityEffect;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -42,16 +44,29 @@ public class BerserkerListener implements Listener {
                                     // Get the weapon's current Sharpness level.
                                     int currentBerserkerLevel = itemInMainHand.getEnchantmentLevel(Enchantment.DAMAGE_ALL);
 
-                                    // Increase the item's damage output by upping the BerserkerLevel (sharpness enchantment).
-                                    itemInMainHand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, currentBerserkerLevel + 1);
+                                    for (BerserkerWeapon bw : BerserkerTask.weapons) {
+                                        myPlugin.getLogger().info("Weapon ID: " + bw.getWeaponID() + "\nItem Lore: " +
+                                                itemLore.get(itemLore.size() - 1));
+                                        if (bw.getWeaponID().equals(itemLore.get(itemLore.size() - 1))) {
+                                            myPlugin.getLogger().info("We've got a match!");
 
-                                    if (BerserkerTask.weaponsHashMap.get(itemInMainHand) != null) {
-                                        BerserkerTask.weaponsHashMap.get(itemInMainHand).setRecentKill(true);
-                                        BerserkerTask.weaponsHashMap.get(itemInMainHand).increaseCurrentLevel(1);
-                                    } else {
-                                        myPlugin.getLogger().info("Null reference for some reason...");
+                                            // Increase the item's damage output by upping the BerserkerLevel (sharpness enchantment).
+                                            // itemInMainHand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, currentBerserkerLevel + 1);
+                                            itemInMainHand.addEnchantment(Enchantment.DAMAGE_ALL, currentBerserkerLevel + 1);
+
+                                            // Update the necessary values/properties of the BerserkerWeapon.
+                                            bw.setRecentKill(true);
+
+                                            bw.increaseCurrentLevel(1);
+
+                                            // Play effects to signal a BerserkerWeapon level up.
+                                            p.playEffect(EntityEffect.FIREWORK_EXPLODE);
+                                            p.playEffect(EntityEffect.FIREWORK_EXPLODE);
+                                            p.playEffect(EntityEffect.FIREWORK_EXPLODE);
+
+                                            return;
+                                        }
                                     }
-                                    return;
                                 }
                             }
                         }
