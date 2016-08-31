@@ -10,20 +10,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BerserkerTask {
-    private final int TICKS_BEFORE_DECREMENT = 100; // One second is twenty ticks, so one hundred ticks is five seconds.
+    private int ticksBeforeDecrement;
 
     public static ArrayList<BerserkerWeapon> weapons = new ArrayList<BerserkerWeapon>();
 
-    public BerserkerTask(Plugin myPlugin) {
+    public BerserkerTask(final Plugin myPlugin) {
+        ticksBeforeDecrement = myPlugin.getConfig().getInt("Settings.Enchantments.Berserker.TimeBetweenKillsBeforeDecrement") * 20;
+
+        if (ticksBeforeDecrement <= 9) ticksBeforeDecrement = 10; // Minimum time increment is half a second.
+
         Bukkit.getScheduler().scheduleSyncRepeatingTask(myPlugin, new Runnable() {
             public void run() {
+                long currentTime = System.currentTimeMillis();
                 for (BerserkerWeapon bw : weapons) {
-                    if (!bw.getRecentKill()) {
+                    myPlugin.getLogger().info("Current Server Time: " + currentTime);
+                    myPlugin.getLogger().info("Current Weapon's Time: " + bw.getTimeOfLastKill());
+                    myPlugin.getLogger().info("Difference: " + (currentTime - bw.getTimeOfLastKill()));
+                    if (currentTime - bw.getTimeOfLastKill() >= 5000) {
+                        myPlugin.getLogger().info("Decrementing weapon " + bw.getWeaponID() + " to level " +
+                                (bw.getCurrentLevel()  - 1));
                         bw.decrementLevel(1);
                     }
                 }
             }
-        }, 0, myPlugin.getConfig().getInt("Settings.enchantments.Berserker.TimeBetweenKillsBeforeDecrement") * 20);
+        }, 0, ticksBeforeDecrement);
     }
 
 }

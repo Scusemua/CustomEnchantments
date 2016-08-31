@@ -7,11 +7,14 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Random;
 
 public class BerserkerWeapon {
-    private ItemStack baseItem; // The base ItemStack for the weapon (sword/axe).
-    private int currentLevel;   // The current Sharpness enchantment on the weapon.
-    private boolean recentKill; // Whether or not the weapon has gotten a kill in the past five seconds.
-    private String weaponID;
+    private ItemStack baseItem;     // The base ItemStack for the weapon (sword/axe).
+    private int currentLevel;       // The current Sharpness enchantment on the weapon.
+    private long timeOfLastKill;    // The time that this weapon was last used to kill a mob.
+    private String weaponID;        // Randomly generated string used as a weapon id.
 
+    /**
+     * Constructor that accepts the ItemStack that represents the baseItem of this BerserkerWeapon.
+     */
     public BerserkerWeapon(ItemStack baseItem) {
         this.baseItem = baseItem;
         baseItem.removeEnchantment(Enchantment.DAMAGE_ALL);
@@ -20,28 +23,29 @@ public class BerserkerWeapon {
         weaponID = "%" + Main.generateString(new Random(), Main.possibleIDChars, 8);
     }
 
-    public boolean getRecentKill() {
-        return recentKill;
-    }
-
-    public void setRecentKill(boolean b) {
-        recentKill = b;
+    /**
+     * Constructor that accepts the ItemStack that represents the baseItem of this BerserkerWeapon
+     * as well as a string representing the item's ID (the string is randomly generated).
+     */
+    public BerserkerWeapon(ItemStack baseItem, String weaponID) {
+        this.baseItem = baseItem;
+        baseItem.removeEnchantment(Enchantment.DAMAGE_ALL);
+        currentLevel = 0;
+        this.weaponID = weaponID;
     }
 
     /**
      * Decreases the current Enchantment level on the weapon.
      */
     public void decrementLevel(int amount) {
-        for (int i = 0; i < amount; i++) {
-            currentLevel -= 1;
+        // Update the weapon's enchantment.
+        baseItem.removeEnchantment(Enchantment.DAMAGE_ALL);
 
-            // Update the weapon's enchantment.
-            baseItem.removeEnchantment(Enchantment.DAMAGE_ALL);
+        currentLevel -= amount;
 
-            if (currentLevel < 0) {
-                currentLevel = 0; // Minimum enchantment is zero.
-                return; // If the level is zero, we don't want to add the enchantment.
-            }
+        if (currentLevel < 0) {
+            currentLevel = 0;
+            return;
         }
 
         baseItem.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, currentLevel);
@@ -51,12 +55,13 @@ public class BerserkerWeapon {
      * Increases the current Enchantment level by the specified amount.
      */
     public void increaseCurrentLevel(int amount) {
+        // Update the weapon's enchantment.
+        baseItem.removeEnchantment(Enchantment.DAMAGE_ALL);
+
         currentLevel += amount;
 
         if (currentLevel > 10) currentLevel = 10; // Maximum Sharpness enchantment is ten.
 
-        // Update the weapon's enchantment.
-        baseItem.removeEnchantment(Enchantment.DAMAGE_ALL);
         baseItem.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, currentLevel);
     }
 
@@ -87,5 +92,26 @@ public class BerserkerWeapon {
      */
     public String getWeaponID() {
         return weaponID;
+    }
+
+    /**
+     * Returns the time that this weapon was last used to kill a mob.
+     */
+    public long getTimeOfLastKill() {
+        return timeOfLastKill;
+    }
+
+    /**
+     * Sets the time that this weapon was last used to kill a mob.
+     */
+    public void setTimeOfLastKill(long newTime) {
+        timeOfLastKill = newTime;
+    }
+
+    /**
+     * Returns the current level, and therefore Sharpness (DAMAGE_ALL) enchantment of the weapon.
+     */
+    public int getCurrentLevel() {
+        return currentLevel;
     }
 }

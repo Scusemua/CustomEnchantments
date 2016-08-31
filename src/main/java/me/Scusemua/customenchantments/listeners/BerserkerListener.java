@@ -45,28 +45,25 @@ public class BerserkerListener implements Listener {
                                     int currentBerserkerLevel = itemInMainHand.getEnchantmentLevel(Enchantment.DAMAGE_ALL);
 
                                     for (BerserkerWeapon bw : BerserkerTask.weapons) {
-                                        myPlugin.getLogger().info("Weapon ID: " + bw.getWeaponID() + "\nItem Lore: " +
-                                                itemLore.get(itemLore.size() - 1));
                                         if (bw.getWeaponID().equals(itemLore.get(itemLore.size() - 1))) {
-                                            myPlugin.getLogger().info("We've got a match!");
-
-                                            // Increase the item's damage output by upping the BerserkerLevel (sharpness enchantment).
-                                            // itemInMainHand.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, currentBerserkerLevel + 1);
-                                            itemInMainHand.addEnchantment(Enchantment.DAMAGE_ALL, currentBerserkerLevel + 1);
-
-                                            // Update the necessary values/properties of the BerserkerWeapon.
-                                            bw.setRecentKill(true);
-
                                             bw.increaseCurrentLevel(1);
 
-                                            // Play effects to signal a BerserkerWeapon level up.
-                                            p.playEffect(EntityEffect.FIREWORK_EXPLODE);
-                                            p.playEffect(EntityEffect.FIREWORK_EXPLODE);
-                                            p.playEffect(EntityEffect.FIREWORK_EXPLODE);
+                                            bw.setTimeOfLastKill(System.currentTimeMillis());
 
                                             return;
                                         }
                                     }
+
+                                    // Create a new BerserkerWeapon since one does not exist for this item.
+                                    BerserkerWeapon bw = new BerserkerWeapon(itemInMainHand,
+                                            itemLore.get(itemLore.size() - 1));
+
+                                    bw.increaseCurrentLevel(1);
+
+                                    // If the weapon wasn't in the collection already, add it for future use.
+                                    BerserkerTask.weapons.add(bw);
+
+                                    bw.setTimeOfLastKill(System.currentTimeMillis());
                                 }
                             }
                         }
